@@ -1,0 +1,135 @@
+{% load static %} 
+{% if user.is_authenticated %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flat And Room Renting System</title>
+    <link rel="stylesheet" href="{% static '/css/user.css'%}">
+    <script src="{% static '/js/state_and_cities.js' %}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
+  </head>
+  <body>
+
+    <input type="checkbox" id="check">
+    <!--header area start-->
+    <header>
+      <label for="check">
+        <i class="fas fa-bars" id="sidebar_btn"></i>
+      </label>
+      <div class="left_area">
+        <h3>Flat And Room<br><span>Renting System</span></h3>
+      </div>
+      <div class="right_area">
+        <a href="/logout" class="logout_btn">Logout</a>
+      </div>
+    </header>
+    <!--header area end-->
+    <!--mobile navigation bar start-->
+    <div class="mobile_nav">
+      <div class="nav_bar">
+        <img src="1.png" class="mobile_profile_image" alt="">
+        <i class="fa fa-bars nav_btn"></i>
+      </div>
+      <div class="mobile_nav_items">
+        <a href="/owner_profile"><i class="fas fa-desktop"></i><span>Profile</span></a>
+        <a href="/owner_property_page"><i class="fas fa-th"></i><span>Your properties</span></a>
+        <a href="#"><i class="fas fa-table"></i><span>Add Property</span></a>
+        <a href="#"><i class="fas fa-table"></i><span>Chat with Customer</span></a>
+        <a href="#"><i class="fas fa-info-circle"></i><span>About</span></a>
+      </div>
+    </div>
+    <!--mobile navigation bar end-->
+    <!--sidebar start-->
+    <div class="sidebar">
+      <div class="profile_info">
+        <img src="1.png" class="profile_image" alt="">
+        <h4>{{fname}} {{lname}}</h4>
+      </div>
+      <a href="/owner_profile"><i class="fas fa-desktop"></i><span>Profile</span></a>
+      <a href="/owner_property_page"><i class="fas fa-th"></i><span>Your properties</span></a>
+      <a href="#"><i class="fas fa-table"></i><span>Add Property</span></a>
+      <a href="#"><i class="fas fa-table"></i><span>Chat with Customer</span></a>
+      <a href="#"><i class="fas fa-info-circle"></i><span>About</span></a>
+    </div>
+    <!--sidebar end-->
+
+    <div class="content">
+      <div class="card">
+        <form method="post" action="/add_property" enctype = "multipart/form-data">
+          {% csrf_token %} 
+
+            <label for="username"><b>Username</b></label><br>
+            <input type="text" id="username" name="username" value=""><br>
+
+            <label for="property_number"><b>Property Number: </b></label><br>
+            <input type="number" id="property_number" name="property_number" value=""><br>
+
+            <!-- <label for="state"><b>State:</b></label><br>
+            <select onchange="print_city('city', this.selectedIndex);" id="state" name ="state" class="form-control" required></select><br>
+            <label for="city"><b>City:</b></label><br>
+            <select  name= "city" id ="city" class="form-control" required></select><br>
+            <script language="javascript">print_state("state");</script><br> -->
+
+            <label for="state"><b>State:</b></label><br>  
+            <input type="text" id="state" name="state" value=""><br>
+
+            <label for="city"><b>City:</b></label><br>
+            <input type="text" id="city" name="city" value=""><br>
+
+            <label for="pincode"><b>Pin code:</b></label><br>
+            <input type="number" id="pincode" name="pincode" value=""><br>
+
+            <label for="area"><b>Area:</b></label><br>
+            <input type="text" id="area" name="area" value=""><br>
+
+            <label for="locality"><b>Locality:</b></label><br>
+            <input type="text" id="locality" name="locality" value=""><br>
+
+            <label for="house"><b>House/Apartment Number: </b></label><br>
+            <input type="text" id="house" name="house" value=""><br>
+
+            <label for="type"><b>Room Type:</b></label><br>
+            <select id="room_type" name="room_type">
+                <option value="1BHK">1BHK</option>
+                <option value="2BHK">2BHK</option>
+                <option value="3BHK">3BHK</option>
+                <option value="PG">PG</option>
+                <option value="HOSTEL">Hostel</option>
+            </select><br>
+
+            <label for="nob"><b>Number of Bathrooms</b></label><br>
+            <input type="number" id="nob" name="nob" value=""><br>
+
+            <label for="Price"><b>Approx Rent:</b></label><br>
+            <input type="number" id="rent" name="rent" value=""><br>
+
+            <label for="discription"><b>Discription</b></label><br>
+            <input type="text" id="discription" name="discription" value="" ><br>
+
+            <label for="upload_Photo:"><b>Upload photos:</b></label><br>
+            <input type="file" value="image" id="image_1" name="image_1" accept="image/*,.pdf" placeholder="Select an image to upload">
+            <input type="file" value="image" id="image_2" name="image_2" accept="image/*,.pdf" placeholder="Select an image to upload">
+            <input type="file" value="image" id="image_3" name="image_3" accept="image/*,.pdf" placeholder="Select an image to upload">
+            <input type="file" value="image" id="image_4" name="image_4" accept="image/*,.pdf" placeholder="Select an image to upload">
+            <input type="file" value="image" id="image_5" name="image_5" accept="image/*,.pdf" placeholder="Select an image to upload">
+            
+            <br>
+            <input type="submit" value="Submit">
+          </form>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+      $('.nav_btn').click(function(){
+        $('.mobile_nav_items').toggleClass('active');
+      });
+    });
+    </script>
+
+  </body>
+</html>
+{% endif %}

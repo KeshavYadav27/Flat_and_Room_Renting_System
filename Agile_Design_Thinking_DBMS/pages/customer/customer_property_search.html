@@ -1,0 +1,25 @@
+{% extends "customer/customer.html"%}
+{% load static %}
+{% if user.is_authenticated %}        
+        
+        {% block customer_search_property %}  
+        
+        {%for property in Property_list%}
+        <p>{{ forloop.counter }}
+        Address:-{{ property.house_number }}  {{ property.locality }}  {{ property.property_area }}  {{ property.pincode }} {{ property.city }}   {{ property.state }}
+        <div class=cards style=" width : 100px;height:70px; ">Room Type:-{{ property.room_type }}</div>
+        <div class=cards style=" width : 100px;height:70px; position:relative; left:150px; bottom:70px; ">Number of Bathrooms:-{{ property.number_of_bathrooms }}</div>
+        <div class=cards style=" width : 100px;height:70px; position:relative; left:400px;bottom:140px;">Property Discription:-{{ property.property_discription }}</div>
+        <div class=cards style=" width : 100px;height:70px; position:relative; left:650px;bottom:210px;">{{ property.rent_of_property }}</div>
+        <div class=cards style=" width : 200px;height:200px; position:relative; bottom:200px;">{{ property.property_image_1 }}</div>
+        <div class=cards style=" width : 200px;height:200px;position:relative;left:220px; bottom:400px; ">{{ property.property_image_2 }}</div>
+        <div class=cards style=" width : 200px;height:200px;position:relative;left:420px; bottom:600px;">{{ property.property_image_3 }}</div>
+        <div class=cards style=" width : 200px;height:200px;position:relative;left:640px; bottom:800px;">{{ property.property_image_4 }}</div>
+        <div class=cards style=" width : 200px;height:200px; position:relative;left:860px; bottom:1000px;">{{ property.property_image_5 }}</div>
+        </p>
+        <button type="button">Book Property</button>   
+        {% endfor %}
+
+        {% endblock %}
+
+{% endif %}

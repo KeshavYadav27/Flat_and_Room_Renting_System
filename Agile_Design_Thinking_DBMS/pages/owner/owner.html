@@ -1,0 +1,92 @@
+{% load static %}
+{% if user.is_authenticated %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flat And Room Renting System</title>
+    <link rel="stylesheet" href="{% static '/css/user.css'%}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+  </head>
+  <body>
+
+    <input type="checkbox" id="check">
+    <!--header area start-->
+    <header>
+      <label for="check">
+        <i class="fas fa-bars" id="sidebar_btn"></i>
+      </label>
+      <div class="left_area">
+        <h3>Flat And Room<br> <span>Renting System</span></h3>
+      </div>
+      <div class="right_area">
+        <a href="/logout" class="logout_btn">Logout</a>
+      </div>
+    </header>
+    <!--header area end-->
+    <!--mobile navigation bar start-->
+    <div class="mobile_nav">
+      <div class="nav_bar">
+        <img src="../../media/{{request.session.owner_profile_picture}}" class="mobile_profile_image" alt="">
+        <h4> {{request.session.fname}} {{request.session.lname}} </h4>
+        <i class="fa fa-bars nav_btn"></i>
+      </div>
+      <div class="mobile_nav_items">
+        <a href="/owner_profile"><i class="fas fa-desktop"></i><span>Profile</span></a>
+      <a href="#"><i class="fas fa-table"></i><span>Chat with Customer</span></a>
+      <a href="#"><i class="fas fa-th"></i><span>Your properties</span></a>
+      <a href="/add_property"><i class="fas fa-table"></i><span>Add Property</span></a>
+      <a href="#"><i class="fas fa-info-circle"></i><span>About</span></a>
+      </div>
+    </div>
+    <!--mobile navigation bar end-->
+    <!--sidebar start-->
+    <div class="sidebar">
+      <div class="profile_info">
+        <img src="../../media/{{request.session.owner_profile_picture}}" class="profile_image" alt="">
+        <h4>{{request.session.fname}} {{request.session.lname}}</h4>
+      </div>
+      <a href="/owner_profile"><i class="fas fa-desktop"></i><span>Profile</span></a>
+      <a href="#"><i class="fas fa-table"></i><span>Chat with Customer</span></a>
+      <a href="#"><i class="fas fa-th"></i><span>Your properties</span></a>
+      <a href="/add_property"><i class="fas fa-table"></i><span>Add Property</span></a>
+      <a href="#"><i class="fas fa-info-circle"></i><span>About</span></a>
+    </div>
+    <!--sidebar end-->
+
+    <div class="content">
+      <div class="card">
+      {% for i in owner_property_list %}
+        <p>{{ forloop.counter }}.<br>
+        Address:- {{ i.house_number }},{{ i.locality }},{{ i.property_area }},{{ i.city }},{{ i.state }} 
+        Pincode:-{{ i.pincode }}<br>
+        Room type:-{{ i.room_type }}<br>
+        Number of Bathrooms:-{{ i.number_of_bathrooms }}<br>
+        property Discription:-{{ i.property_discription }}<br>
+        Rent:-{{ i.rent_of_property }}<br>
+        Property Images:-<br>
+        {% for j in owner_property_images_list %}
+        {% if j.user_id == i.user_id %}
+        <img src="{{ j.property_image.url }}" alt="">
+        {% endif %}
+        {%endfor%}
+        </p>
+      {%endfor%}
+      </div>
+    </div>
+      
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+      $('.nav_btn').click(function(){
+        $('.mobile_nav_items').toggleClass('active');
+      });
+    });
+    </script>
+
+    
+
+  </body>
+</html>
+{% endif %}

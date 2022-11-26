@@ -1,0 +1,124 @@
+{% load static %}
+{% if user.is_authenticated %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flat And Room Renting System</title>
+    <link rel="stylesheet" href="{% static '/css/user.css'%}">
+    <script src="{% static '/js/state_and_cities.js' %}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+    <!-- <img src="ii.jpg" style="width:100vh;" charset="utf-8"> -->
+  </head>
+  <body>
+    <!--header area start-->
+    <header>
+      <label for="check">
+        <i class="fas fa-bars" id="sidebar_btn"></i>
+      </label>
+      <div class="left_area">
+        <h3>Flat And Room<br><span>Renting System</span></h3>
+      </div>
+      <div class="right_area">
+        <a href="/logout" class="logout_btn">Logout</a>
+      </div>
+    </header>
+    <!--header area end-->
+    <!--mobile navigation bar start-->
+    <div class="mobile_nav">
+      <div class="nav_bar">
+        <img src="../../media/{{request.session.customer_profile_picture}}" class="mobile_profile_image" alt="">
+        <h4> {{request.session.fname}} {{request.session.lname}}</h4>
+        <i class="fa fa-bars nav_btn"></i>
+      </div>
+      <div class="mobile_nav_items">
+        <a href="/customer_profile"><i class="fas fa-desktop"></i><span>Profile</span></a>
+        <a href="#"><i class="fas fa-th"></i><span>Search Properties</span></a>
+        <a href="/customer_chat_owner"><i class="fas fa-table"></i><span>Chat with Owner</span></a>
+        <a href="#"><i class="fas fa-info-circle"></i><span>About</span></a>
+      </div>
+    </div>
+    <!--mobile navigation bar end-->
+    <!--sidebar start-->
+    <div class="sidebar">
+      <div class="profile_info">
+        <img src="../../media/{{request.session.customer_profile_picture}}" class="profile_image" alt="">
+        <h4>{{request.session.fname}} {{request.session.lname}} </h4>
+      </div>
+      <a href="/customer_profile"><i class="fas fa-desktop"></i><span>Profile</span></a>
+      <a href="#"><i class="fas fa-th"></i><span>Search Properties</span></a>
+      <a href="#"><i class="fas fa-table"></i><span>Chat with Owner</span></a>
+      <a href="#"><i class="fas fa-info-circle"></i><span>About</span></a>
+    </div>
+    <!--sidebar end-->
+
+    <div class="content">
+      
+      <form method="post" action="/customer_search_property">
+      {% csrf_token %}
+      <!-- <label for="state"><b>State:</b></label><br>
+      <select onchange="print_city('city', this.selectedIndex);" type="text" id="state" name ="state" class="form-control" required></select>
+      <label for="city"><b>City:</b></label>
+      <select type="text"  name= "city" id ="city" class="form-control" required></select>
+      <script language="javascript">print_state("state");</script>
+      <button type="submit" id="customer_request" name="customer_request" value= "Submit" >Search</button> -->
+
+            <label for="state"><b>State:</b></label><br>  
+            <input type="text" id="state" name="state" value="" required><br>
+
+            <label for="city"><b>City:</b></label>
+            <input type="text" id="city" name="city" value=""><br> 
+
+            <button type="submit" id="customer_search_property" name="customer_search_property" value= "Submit" >Search</button> 
+
+
+      </form>
+      <br>
+      {%for property in property_list %}
+      <!-- {%for i in owner_property_id_list%} -->
+      <!-- {% if i == property %} -->
+      <div class="card">
+        <p>{{ forloop.counter }}. <br>
+        <!-- Owner ID:-{{i}}  <br> -->
+        Address:- {{ property.house_number }}  {{ property.locality }}  {{ property.property_area }}  {{ property.pincode }} {{ property.city }}   {{ property.state }} <br>
+        Room Type:- {{ property.room_type }} <br>
+        Number of Bathrooms:- {{ property.number_of_bathrooms }} <br>
+        Property Discription:- {{ property.property_discription }} <br>
+        Rent:- {{ property.rent_of_property }} <br>
+        Property images:-<br>
+        
+          {% for j in owner_property_images_list %}
+
+              {% if j.user_id == i.user_id %}
+              <img src="{{ j.property_image.url }}" alt="">
+              {% endif %}
+
+          {%endfor%}
+            <form method="post" action="/customer_request">
+            {% csrf_token %}
+        <br><button type="submit" id="customer_request" name="customer_request" value= "Submit" >Send Request</button> 
+            </form>
+        </p>   
+      </div>
+        <!-- {%endif%}  -->
+      <!-- {% endfor %} -->
+      {% endfor %}
+
+       
+    </div>
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+      $('.nav_btn').click(function(){
+        $('.mobile_nav_items').toggleClass('active');
+      });
+    });
+    </script>
+
+
+
+  </body>
+</html>
+{% endif %}

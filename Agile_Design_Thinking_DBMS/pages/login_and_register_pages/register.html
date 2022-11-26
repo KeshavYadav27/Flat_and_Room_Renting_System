@@ -1,0 +1,103 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Registration Form</title>
+	<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+	<link rel="stylesheet" href="{% static '/css/register.css'%}">
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="title">
+      <h1>Create Account</h1>
+    </div>
+      <form method="post" action="/register" enctype = "multipart/form-data">
+        {% csrf_token %} 
+
+
+            <h2> </h2>
+            <label for="role">Select Role:</label>
+            <select name="role">
+            <option value="owner">Owner</option>
+            <option value="customer">Customer</option>
+
+
+            </select>
+
+            <br>
+
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" name="username" placeholder="Create A Username (use only letters and numbers)" Required>
+        <br>
+
+        <label for="fname">First Name</label>
+        <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter Your First Name" Required>
+        <br>
+
+        <label for="lname">Last Name</label>
+        <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter Your Last Name" Required>
+        <br>
+
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="Enter Your Email Address" Required>
+        <br>
+
+        <label for="pass1">Password</label>
+        <input type="password" class="form-control" id="pass1" name="pass1" placeholder="Create Your Password" Required>
+        <br>
+
+        <label for="pass2">Confirm Password</label>
+        <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Confirm Your Password" Required>
+        <br>
+
+        <label for="phone_number_1">Phone_number_1</label>
+        <input type="tel" class="form-control" id="pn1" name="pn1" placeholder="Please enter your Phone Number" Required>
+        <br>
+
+        <label for="phone_number_2">Phone_number_2</label>
+        <input type="tel" class="form-control" id="pn2" name="pn2" placeholder="Enter Alternative phone number" Required>
+        <br>
+
+
+    <label for="role">Gender:</label>
+            <select name="gender">
+            <option value="male">male</option>
+            <option value="female">Female</option>
+            <option value="others">Others</option>
+            </select>
+            <br>
+
+
+        <label for="Source Of Income">Profession(Source of Income)</label>
+        <input type="text" class="form-control" id="soi" name="soi" placeholder="Source of income" Required>
+        <br>
+
+        <label for="Income">Income</label>
+        <input type="text" class="form-control" id="income" name="income" placeholder="income" Required>
+        <br>
+
+        <label for="age">Age</label>
+        <input type="text" class="form-control" id="age" name="age" placeholder="age" Required>
+        <br>
+
+        <label for="Bio">Bio</label>
+        <input type="text" class="form-control" id="bio" name="bio" placeholder="bio" Required>
+        <br>
+        
+        <label for="profile_picture">Profile Picture</label>
+        <input type="file" value="image" id="imageupload" name="imageupload" accept="image/*,.pdf" placeholder="Select a file to upload" >
+        <br>
+
+      <input class="btn btn-primary" type="submit" value="Submit">
+
+      </form>
+
+</div>
+
+</body>
+</html>
