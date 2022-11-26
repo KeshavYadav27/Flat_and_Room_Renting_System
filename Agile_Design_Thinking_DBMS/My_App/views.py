@@ -1,6 +1,5 @@
 # Create your views here.
 import json
-import os
 from decimal import *
 from collections import UserDict
 # from My_App.context_processor import Owner_Property_renderer 
